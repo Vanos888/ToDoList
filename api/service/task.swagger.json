@@ -1,0 +1,150 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api/service/task.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "TaskApi"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "CreateTaskResponse": {
+      "type": "object"
+    },
+    "Filter": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "taskStatus": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "string",
+          "format": "int64"
+        },
+        "orderField": {
+          "$ref": "#/definitions/OrderField"
+        },
+        "orderBy": {
+          "$ref": "#/definitions/OrderBy"
+        }
+      }
+    },
+    "GetTaskByFilterResponse": {
+      "type": "object",
+      "properties": {
+        "tasks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Task"
+          }
+        }
+      }
+    },
+    "NewTask": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "taskName": {
+          "type": "string"
+        },
+        "taskDesc": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "OrderBy": {
+      "type": "string",
+      "enum": [
+        "Asc",
+        "Desc"
+      ],
+      "default": "Asc"
+    },
+    "OrderField": {
+      "type": "string",
+      "enum": [
+        "FieldUnknown",
+        "FieldTaskPriority",
+        "FieldTaskCreatedAt"
+      ],
+      "default": "FieldUnknown"
+    },
+    "SetTaskStatusResponse": {
+      "type": "object"
+    },
+    "Task": {
+      "type": "object",
+      "properties": {
+        "taskId": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "taskName": {
+          "type": "string"
+        },
+        "taskDesk": {
+          "type": "string"
+        },
+        "taskStatus": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "string",
+          "format": "int64"
+        },
+        "createdAt": {
+          "type": "string"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

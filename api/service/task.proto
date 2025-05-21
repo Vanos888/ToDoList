@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+option go_package = "api/task";
+
+service TaskApi {
+  rpc CreateTask (CreateTaskRequest) returns (CreateTaskResponse){}
+  rpc SetTaskStatus (SetTaskStatusRequest) returns (SetTaskStatusResponse){}
+  rpc GetTaskByFilter (GetTaskByFilterRequest) returns (GetTaskByFilterResponse){}
+}
+
+
+message NewTask{
+  string user_id = 1;
+  string task_name = 2;
+  string task_desc = 3;
+  int64 priority = 4;
+}
+message CreateTaskRequest {
+  NewTask task = 1;
+}
+message CreateTaskResponse {}
+
+
+message SetTaskStatusRequest{
+  string task_id = 1;
+  string task_status = 2;
+}
+message SetTaskStatusResponse{}
+
+message Task {
+  string task_id = 1;
+  string user_id = 2;
+  string task_name = 3;
+  string task_desk = 4;
+  string task_status = 5;
+  int64 priority = 6;
+  string created_at = 7;
+}
+
+enum OrderField  {
+  FieldUnknown = 0;
+  FieldTaskPriority = 1;
+  FieldTaskCreatedAt = 2;
+}
+enum OrderBy {
+  Asc = 0;
+  Desc = 1;
+}
+
+message Filter{
+  string user_id = 1;
+  string task_status = 2;
+  int64 priority = 3;
+  OrderField order_field = 4;
+  OrderBy order_by = 5;
+}
+message GetTaskByFilterRequest{
+  Filter filter = 1;
+}
+message GetTaskByFilterResponse{
+  repeated Task tasks = 1;
+}
